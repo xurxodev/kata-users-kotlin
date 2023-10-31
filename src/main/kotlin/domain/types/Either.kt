@@ -1,5 +1,7 @@
 package domain.types
 
+import java.lang.Exception
+
 /**
  * Simplified version of Either functional ype
  * Represents a value of one of two possible types (a disjoint union).
@@ -87,3 +89,19 @@ fun <L, R> Either<L, R>.getOrElse(value: R): R =
     }
 
 
+fun <L, R> Either<L, R>.get(): R {
+    return this.getOrThrow()
+}
+
+fun <L, R> Either<L, R>.getOrThrow(): R {
+    val throwFn = {
+        throw Exception(
+            "An error has occurred retrieving the value"
+        )
+    }
+
+    return when (this) {
+        is Either.Left -> throwFn()
+        is Either.Right -> b
+    }
+}
