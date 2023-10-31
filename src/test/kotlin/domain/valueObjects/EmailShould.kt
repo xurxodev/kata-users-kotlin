@@ -8,8 +8,8 @@ import org.junit.jupiter.api.Test
 class EmailShould {
     @Test
     fun `return success response if email is valid`() {
-        val emailValue = "info@karatestarsapp.com";
-        val emailResult = Email.create(emailValue);
+        val emailValue = "info@karatestarsapp.com"
+        val emailResult = Email.create(emailValue)
 
         emailResult.fold(
             { _ -> fail("Should be success") },
