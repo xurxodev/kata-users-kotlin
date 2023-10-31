@@ -20,19 +20,17 @@ const val CODE_SIZE = 10
 val ID_PATTERN = "^[a-zA-Z]{1}[a-zA-Z0-9]{10}$"
 
 @JvmInline
-value class Id private constructor(
-    val value: String,
-) {
+value class Id private constructor(val value: String) {
 
     companion object {
         fun generateId(): Id {
             // First char should be a letter
             val letterIndex = randomWithMax(letters.length)
-            var randomChars = letters.substring(letterIndex,letterIndex +1)
+            var randomChars = letters.substring(letterIndex, letterIndex + 1)
 
             for (i in 1..CODE_SIZE) {
                 val index = randomWithMax(letters.length)
-                randomChars += ALLOWED_CHARS.substring(index,index +1)
+                randomChars += ALLOWED_CHARS.substring(index, index + 1)
             }
 
             return Id(value = randomChars)
@@ -42,12 +40,12 @@ value class Id private constructor(
             val requiredError = validateRequired(id)
             val regexpErrors = validateRegexp(id, Regex(ID_PATTERN))
 
-            if (requiredError.isNotEmpty()) {
-                return Either.Left(requiredError);
+            return if (requiredError.isNotEmpty()) {
+                Either.Left(requiredError);
             } else if (regexpErrors.isNotEmpty()) {
-                return Either.Left(regexpErrors);
+                Either.Left(regexpErrors);
             } else {
-                return Either.Right(Id(id))
+                Either.Right(Id(id))
             }
         }
     }
