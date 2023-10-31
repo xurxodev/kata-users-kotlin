@@ -15,7 +15,7 @@ fun capitalize(text: String): String {
     return text.substring(0, 1).uppercase() + text.substring(1);
 }
 
-data class ValidationError<T>(
+data class ValidationError(
     val property: String,
     val value: Any,
     val errors: List<ValidationErrorKey>
