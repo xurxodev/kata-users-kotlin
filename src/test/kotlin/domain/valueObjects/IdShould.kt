@@ -27,7 +27,7 @@ class IdShould {
     }
 
     @Test
-    fun `should return Id cannot be blank error if value argument is empty`() {
+    fun `return Id cannot be blank error if value argument is empty`() {
         val idResult = Id.createExisted("")
 
         idResult.fold(
@@ -40,7 +40,7 @@ class IdShould {
     }
 
     @Test
-    fun `should return InvalidId error if value argument is invalid`() {
+    fun `return InvalidId error if value argument is invalid`() {
         val idResult = Id.createExisted("wrong id")
 
         idResult.fold(
@@ -53,7 +53,7 @@ class IdShould {
     }
 
     @Test
-    fun `should return InvalidId error if value argument starts with a number`() {
+    fun `return InvalidId error if value argument starts with a number`() {
         val idResult = Id.createExisted("0kWynlWMjJR")
 
         idResult.fold(
@@ -66,7 +66,7 @@ class IdShould {
     }
 
     @Test
-    fun `should return InvalidId error if value argument contains non-alphanumeric characters`() {
+    fun `return InvalidId error if value argument contains non-alphanumeric characters`() {
         val idResult = Id.createExisted("AkWy_lWMjJR")
 
         idResult.fold(
