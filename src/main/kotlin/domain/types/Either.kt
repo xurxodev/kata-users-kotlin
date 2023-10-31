@@ -1,4 +1,4 @@
-package domain.functional
+package domain.types
 
 /**
  * Simplified version of Either functional ype

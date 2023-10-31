@@ -1,8 +1,5 @@
-package domain.functional
+package domain.types
 
-import domain.functional.Either
-import domain.functional.flatMap
-import domain.functional.map
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 
