@@ -5,7 +5,6 @@ enum class ValidationErrorKey {
     INVALID_FIELD
 }
 
-
 val validationErrorMessages: Map<ValidationErrorKey, (field: String) -> String> = mapOf(
     ValidationErrorKey.FIELD_CANNOT_BE_BLANK to { field: String -> "${capitalize(field)} cannot be blank" },
     ValidationErrorKey.INVALID_FIELD to { field: String -> "Invalid ${field.lowercase()}" }

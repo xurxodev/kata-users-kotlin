@@ -3,7 +3,7 @@ package domain.types
 import java.lang.Exception
 
 /**
- * Simplified version of Either functional ype
+ * Simplified version of Either functional type
  * Represents a value of one of two possible types (a disjoint union).
  * Instances of [Either] are either an instance of [Left] or [Right].
  * FP Convention dictates that [Left] is used for "failure"
@@ -48,7 +48,7 @@ sealed class Either<out L, out R> {
      * @see Left
      * @see Right
      */
-    fun <T>fold(fnL: (L) -> T, fnR: (R) -> T): T =
+    fun <T> fold(fnL: (L) -> T, fnR: (R) -> T): T =
         when (this) {
             is Left -> fnL(a)
             is Right -> fnR(b)
@@ -73,11 +73,20 @@ fun <T, L, R> Either<L, R>.flatMap(fn: (R) -> Either<L, T>): Either<L, T> =
         is Either.Right -> fn(b)
     }
 
+fun <T, L, R> Either<L, R>.flatLeftMap(fn: (L) -> Either<T, R>): Either<T, R> =
+    when (this) {
+        is Either.Left -> fn(a)
+        is Either.Right -> Either.Right(b)
+    }
+
 /**
  * Right-biased map() FP convention which means that Right is assumed to be the default case
  * to operate on. If it is Left, operations like map, flatMap, ... return the Left value unchanged.
  */
 fun <T, L, R> Either<L, R>.map(fn: (R) -> (T)): Either<L, T> = this.flatMap(fn.c(::right))
+
+fun <T, L, R> Either<L, R>.mapLeft(fn: (L) -> (T)): Either<T, R> = this.flatLeftMap(fn.c(::left))
+
 
 /** Returns the value from this `Right` or the given argument if this is a `Left`.
  *  Right(12).getOrElse(17) RETURNS 12 and Left(12).getOrElse(17) RETURNS 17
