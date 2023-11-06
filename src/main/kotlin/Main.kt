@@ -1,7 +1,15 @@
-fun main(args: Array<String>) {
-    println("Hello World!")
+fun main() {
+    val presenter = getUsersPresenter()
 
-    // Try adding program arguments via Run/Debug configuration.
-    // Learn more about running applications: https://www.jetbrains.com/help/idea/running-applications.html.
-    println("Program arguments: ${args.joinToString()}")
+    presenter.onInitialize()
+
+    Runtime.getRuntime().addShutdownHook(object : Thread() {
+        override fun run() {
+            presenter.onStop()
+        }
+    })
+
+    while (true) {
+        presenter.loadUsersListAndRequestNew()
+    }
 }
